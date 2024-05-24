@@ -1,8 +1,8 @@
-import asyncio
-import flet as ft
-import time
 
-class Clock(ft.UserControl):
+import asyncio, time, flet as ft
+
+
+class Clock():
     def __init__(self):
         super().__init__()
         self.seconds = 1
@@ -47,6 +47,10 @@ class Clock(ft.UserControl):
         self.seconds = 1
         self.countup.value = "00:00"
         await self.update_async()
+
+
+class TodoApp(ft.UserControl, Clock):
+
     def build(self):
         self.countup = ft.Text(value="00:00")
         self.clock = ft.Text()
@@ -72,16 +76,6 @@ class Clock(ft.UserControl):
             ]
         )
 
-        return ft.Column(
-            width=600,
-            controls=[
-                self.timer_row,
-            ],
-        )
-
-class TodoApp(ft.UserControl):
-
-    def build(self):
         self.new_task = ft.TextField(hint_text="Whats needs to be done?", expand=True)
         self.tasks = ft.Column()
 
@@ -89,6 +83,7 @@ class TodoApp(ft.UserControl):
         return ft.Column(
             width=600,
             controls=[
+                self.timer_row,
                 ft.Row(
                     controls=[
                         self.new_task,
@@ -108,6 +103,7 @@ class TodoApp(ft.UserControl):
     async def task_delete(self, task):
         self.tasks.controls.remove(task)
         await self.update_async()
+
 
 class Task(ft.UserControl):
     def __init__(self, task_name, task_delete):
@@ -173,8 +169,9 @@ class Task(ft.UserControl):
     async def delete_clicked(self, e):
         await self.task_delete(self)
 
+
 async def main(page: ft.Page):
-    page.title = "ToDo App"
+    page.title = "Time Clock ToDo"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     await page.update_async()
     await page.add_async(Clock())
@@ -185,9 +182,3 @@ async def main(page: ft.Page):
 
 
 ft.app(target=main)
-
-def test():
-    """
-
-    :return:
-    """
