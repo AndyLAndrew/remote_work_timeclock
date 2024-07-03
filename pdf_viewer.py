@@ -28,14 +28,14 @@ class PDFViewerApp(ft.UserControl):
         self.current_index = 0
         self.pdf_page = 1
         self.load_current_row_data()
+        self.maxpdfwidth = 600
+        self.maxpdfheight = 800
 
     def load_current_row_data(self):
         self.doc_location = df.loc[self.current_index, "doc_location"]
         self.var_number = df.loc[self.current_index, "attribute"]
         self.var_name = df.loc[self.current_index, "annotation_variable"]
         self.var_value = df.loc[self.current_index, "annotation_value"]
-
-        print(f'{self.doc_location}, {self.var_number}, {self.var_name}, {self.var_value}')
 
         # Clear assets directory and save PDF pages as images
         self.assets_dir = "assets"
@@ -57,7 +57,12 @@ class PDFViewerApp(ft.UserControl):
         self.back_button = ft.FilledButton(text="Back", on_click=self.back_clicked)
         self.forward_button = ft.FilledButton(text="Forward", on_click=self.forward_clicked)
 
-        self.pdf_display = ft.Image(src=f"/{self.assets_dir}/0.png", width=self.page_width, height=self.page_height)
+        self.pdf_display = ft.Image(
+            src=f"/{self.assets_dir}/0.png",
+            width=self.maxpdfwidth,
+            height=self.maxpdfheight,
+            fit=ft.ImageFit.CONTAIN
+        )
         self.page_navigation = ft.Row(
             controls=[
                 ft.FilledButton(text="<", on_click=self.prev_page),
