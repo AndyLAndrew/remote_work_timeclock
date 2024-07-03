@@ -50,7 +50,7 @@ class PDFViewerApp(ft.UserControl):
         self.doc_location_text = ft.Text(value=f"Doc Location: {self.doc_location}", size=20)
         self.var_number_text = ft.Text(value=f"Var#: {self.var_number}", size=15)
         self.var_name_text = ft.Text(value=f"VarName: {self.var_name}", size=15)
-        self.var_value_text = ft.TextField(value=self.var_value, multiline=True, expand=True)
+        self.var_value_text = ft.TextField(value=self.var_value, multiline=True, expand=False)
 
         self.correct_button = ft.FilledButton(text="Correct", on_click=self.correct_clicked)
         self.incorrect_button = ft.FilledButton(text="Incorrect", on_click=self.incorrect_clicked)
