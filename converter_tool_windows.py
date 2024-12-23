@@ -5,7 +5,7 @@ def main(page: ft.Page):
     file_list = []
     export_path = ""
 
-    pb = ft.ProgressBar(width=800, value=0)  # Initialize progress bar with value set to 0
+    pb = ft.ProgressBar(width=400, value=0)  # Initialize progress bar with value set to 0
 
     def on_select_files_result(e: ft.FilePickerResultEvent):
         nonlocal file_list
@@ -41,12 +41,11 @@ def main(page: ft.Page):
 
     def custom_func(file_list, export_path):
         # Placeholder for the custom function logic
-        for i in range(100):
-            pb.value = (i + 1) / 100  # Update progress bar value
-            print(f"Processing {i + 1}%")
-            time.sleep(0.1)  # Introduce a small delay to allow UI to update
-            page.update()
+        for i in range(101):
+            pb.value = i * 0.01  # Update progress bar value
+            time.sleep(0.1)  # Simulate processing time
         pb.value = 0  # Reset progress bar value to 0 after completion
+        page.update()
 
     # File picker for selecting files
     pick_files_dialog = ft.FilePicker(on_result=on_select_files_result)
@@ -87,8 +86,8 @@ def main(page: ft.Page):
     )
 
     # Resize window to 600x400 pixels and make it resizable
-    page.window_width = 820
-    page.window_height = 200
+    page.window_width = 600
+    page.window_height = 400
     page.window_resizable = True
     page.update()
 
